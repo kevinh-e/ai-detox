@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>LLM Blocker Options</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #4CAF50;
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            min-height: 100px;
+            resize: vertical;
+        }
+        input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #status {
+            margin-top: 20px;
+            font-weight: bold;
+            color: green;
+        }
+        .note {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>LLM Blocker Settings</h1>
+
+        <label for="blockedSites">LLM Websites to Restrict (one per line, use * for wildcards):</label>
+        <textarea id="blockedSites"></textarea>
+        <p class="note">Examples: `*://chat.openai.com/*`, `*://gemini.google.com/*`, `*://claude.ai/*`</p>
+
+        <label>
+            <input type="checkbox" id="proceedMode">
+            Enable Confirmation Mode (instead of 100% block)
+        </label>
+        <p class="note">If checked, you'll see a prompt to type confirmation text. If unchecked, sites will be completely blocked.</p>
+
+        <div id="settings" style="display: none;">
+            <label for="proceedText">Confirmation Text:</label>
+            <input type="text" id="proceedText" value="confirm access">
+            <p class="note">Users must type this exact text to access blocked sites in confirmation mode.</p>
+        </div>
+
+        <button id="saveButton">Save Settings</button>
+        <div id="status"></div>
+    </div>
+    <script src="options.js"></script>
+</body>
+</html>
