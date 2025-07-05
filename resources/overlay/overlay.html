@@ -8,12 +8,15 @@
       <p id="blocker-instruction">
         This website is restricted by no-ai.
         <br />
-        To proceed, type <code></code> below:
+        To proceed, type <code id="proceed-code"></code> below:
       </p>
-      <input type="text" id="confirmation-input" placeholder="Enter confirmation text">
+      <input type="text" id="proceed-input" placeholder="Enter confirmation text" autocomplete="off" class="input">
+      <p id="blocker-instruction">
+        Confirm by typing <code id="confirm-code"></code>:
+      </p>
+      <input type="text" id="confirmation-input" placeholder="Confirm" autocomplete="off" class="input">
       <p id="error-message">Incorrect confirmation text.</p>
       <button id="proceed-button">Proceed</button>
     </div>
-
   </div>
 </div>

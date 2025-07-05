@@ -46,6 +46,10 @@
         "resources/overlay/overlay.html",
         "resources/overlay/overlay.css",
         "resources/overlay/overlay.js",
+        "options/pages/general.html",
+        "options/pages/filters.html",
+        "options/pages/appearance.html",
+        "options/pages/about.html",
         "images/logo.svg"
       ],
       "matches": [

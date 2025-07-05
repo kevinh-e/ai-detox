@@ -2,32 +2,18 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>LLM Blocker Options</title>
+    <title>no-ai configuration</title>
     <link rel="stylesheet" href="style.css"></link>
 </head>
 <body>
-    <div class="container">
-        <h1>LLM Blocker Settings</h1>
-
-        <label for="blockedSites">LLM Websites to Restrict (one per line, use * for wildcards):</label>
-        <textarea id="blockedSites"></textarea>
-        <p class="note">Examples: `*://chat.openai.com/*`, `*://gemini.google.com/*`, `*://claude.ai/*`</p>
-
-        <label>
-            <input type="checkbox" id="proceedMode">
-            Enable Confirmation Mode (instead of 100% block)
-        </label>
-        <p class="note">If checked, you'll see a prompt to type confirmation text. If unchecked, sites will be completely blocked.</p>
-
-        <div id="settings" style="display: none;">
-            <label for="proceedText">Confirmation Text:</label>
-            <input type="text" id="proceedText" value="confirm access">
-            <p class="note">Users must type this exact text to access blocked sites in confirmation mode.</p>
-        </div>
-
-        <button id="saveButton">Save Settings</button>
-        <div id="status"></div>
-    </div>
-    <script src="options.js"></script>
+    <nav id="nav">
+      <a href="#general" class="nav-element">General</a>
+      <a href="#filters" class="nav-element">Filters</a>
+      <a href="#appearance" class="nav-element">Appearance</a>
+      <a href="#about" class="nav-element">About</a>
+    </nav>
+    <main id="app" class="container">
+    </main>
+    <script src="router.js"></script>
 </body>
 </html>

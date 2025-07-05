@@ -57,7 +57,7 @@
   margin-bottom: 16px;
 }
 
-#confirmation-input {
+.input{
   background-color: hsl(0 0% 100%);
   padding: 8px 12px;
   width: 100%;
@@ -72,7 +72,7 @@
   outline: none;
 }
 
-#confirmation-input:focus {
+.input:focus {
   border-color: hsl(0 0% 3.9%);
   box-shadow: 0 0 0 2px hsl(0 0% 3.9% / 0.2);
 }
