@@ -8,19 +8,10 @@
     "default_icon": "images/icon-48.png"
   },
   "icons": {
-    {
-      "src": "images/icon-lr.webp",
-      "sizes": "48x48",
-      "type": "image/webp"
-    },
-    {
-      "src": "images/icon-ico.ico",
-      "sizes": "72x72 96x96 128x128 256x256"
-    },
-    {
-      "src": "images/icon-svg.svg",
-      "sizes": "any"
-    }
+    "16": "images/icon-16.png",
+    "32": "images/icon-32.png",
+    "48": "images/icon-48.png",
+    "128": "images/icon-128.png"
   },
   "permissions": [
     "storage",
@@ -52,8 +43,10 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "resources/block-page.html",
-        "resources/confirmation-overlay.css"
+        "resources/overlay/overlay.html",
+        "resources/overlay/overlay.css",
+        "resources/overlay/overlay.js",
+        "images/logo.svg"
       ],
       "matches": [
         "<all_urls>"

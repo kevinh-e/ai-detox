@@ -33,6 +33,9 @@ async function updateBlockingRules() {
         condition: {
           urlFilter: urlPattern,
           resourceTypes: ["main_frame"]
+        },
+        action: {
+          type: "allow"
         }
       });
     }
