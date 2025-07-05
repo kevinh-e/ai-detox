@@ -1,37 +1,33 @@
-const BLOCKED_SITES_KEY = 'blockedSites';
-const MODE_KEY = 'proceedMode';
-const PROCEED_TEXT_KEY = 'proceedText';
-const CONFIRM_TEXT_KEY = 'confirmText';
-const CONFIRM_MODE_KEY = 'confirmMode';
+import { defaultLLMSites, STORAGE_KEYS } from "../../config.js";
 
-const defaultLLMSites = [
-  "*://chatgpt.com/*",
-  "*://gemini.google.com/*",
-  "*://claude.ai/*",
-  "*://www.perplexity.ai/*",
-  "*://poe.com/*",
-  "*://copilot.microsoft.com/*",
-  "*://v0.dev/*"
-];
+const {
+  BLOCKED_SITES,
+  FILTER_MODE,
+  PROCEED_TEXT,
+  CONFIRM_TEXT,
+  CONFIRM_MODE,
+} = STORAGE_KEYS;
 
 const blockedSitesTextarea = document.getElementById('blockedSites');
-const proceedModeCheckbox = document.getElementById('proceedMode');
+const filterModeCheckbox = document.getElementById('filterMode');
 const confirmModeCheckbox = document.getElementById('confirmMode');
 const proceedTextInput = document.getElementById('proceedText');
 const confirmTextInput = document.getElementById('confirmText');
-const settingsDiv = document.getElementById('settings');
 const saveButton = document.getElementById('saveButton');
 const statusDiv = document.getElementById('status');
 
 // Load saved settings
 function loadSettings() {
-  chrome.storage.sync.get([BLOCKED_SITES_KEY, MODE_KEY, PROCEED_TEXT_KEY, CONFIRM_TEXT_KEY, CONFIRM_MODE_KEY])
+  chrome.storage.sync.get(Object.values(STORAGE_KEYS))
     .then((settings) => {
-      const savedSites = settings[BLOCKED_SITES_KEY];
+      const savedSites = settings[BLOCKED_SITES];
+
       blockedSitesTextarea.value = (savedSites && savedSites.length > 0) ? savedSites.join('\n') : defaultLLMSites.join('\n');
-      proceedModeCheckbox.checked = settings[MODE_KEY] || true;
-      proceedTextInput.value = settings[PROCEED_TEXT_KEY] || "I'm sure I want to use AI.";
-      confirmTextInput.value = settings[CONFIRM_TEXT_KEY] || "Confirm";
+      filterModeCheckbox.checked = settings[FILTER_MODE] || true;
+      confirmModeCheckbox.checked = settings[CONFIRM_MODE] || true;
+      proceedTextInput.value = settings[PROCEED_TEXT] || "I'm sure I want to use AI.";
+      confirmTextInput.value = settings[CONFIRM_TEXT] || "Confirm";
+
       toggleConfirmationSettings();
     })
     .catch(error => {
@@ -46,17 +42,17 @@ function saveSettings() {
   console.log("saving");
 
   const blockedSites = blockedSitesTextarea.value.split('\n').map(s => s.trim()).filter(s => s !== '');
-  const proceedMode = proceedModeCheckbox.checked;
+  const filterMode = filterModeCheckbox.checked;
   const proceedText = proceedTextInput.value.trim();
   const confirmText = confirmTextInput.value.trim();
   const confirmMode = confirmModeCheckbox.checked;
 
   chrome.storage.sync.set({
-    [BLOCKED_SITES_KEY]: blockedSites,
-    [MODE_KEY]: proceedMode,
-    [PROCEED_TEXT_KEY]: proceedText,
-    [CONFIRM_TEXT_KEY]: confirmText,
-    [CONFIRM_MODE_KEY]: confirmMode
+    [BLOCKED_SITES]: blockedSites,
+    [FILTER_MODE]: filterMode,
+    [PROCEED_TEXT]: proceedText,
+    [CONFIRM_TEXT]: confirmText,
+    [CONFIRM_MODE]: confirmMode
   })
     .then(() => {
       statusDiv.textContent = 'Settings saved!';
@@ -74,7 +70,7 @@ function saveSettings() {
 
 // Toggle visibility of confirmation text input
 function toggleConfirmationSettings() {
-  if (proceedModeCheckbox.checked) {
+  if (filterModeCheckbox.checked) {
     confirmModeCheckbox.disabled = false;
     confirmTextInput.disabled = false;
   } else {
@@ -85,5 +81,5 @@ function toggleConfirmationSettings() {
 
 // Event Listeners
 saveButton.addEventListener('click', saveSettings);
-proceedModeCheckbox.addEventListener('change', toggleConfirmationSettings);
+filterModeCheckbox.addEventListener('change', toggleConfirmationSettings);
 loadSettings();

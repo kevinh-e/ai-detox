@@ -10,6 +10,12 @@ function injectJS() {
 (async () => {
   const response = await chrome.runtime.sendMessage({ type: "getBlockSettings" });
   const { isBlocked, proceedMode, proceedText, confirmText, confirmMode } = response;
+  const settings = {
+    proceedMode,
+    proceedText,
+    confirmText,
+    confirmMode,
+  };
 
   if (isBlocked) {
     const url = chrome.runtime.getURL("resources/overlay/overlay.html");
@@ -18,11 +24,10 @@ function injectJS() {
     wrapper.innerHTML = html;
 
     // Find the overlay element and attach data to it
-    const overlayElement = wrapper.querySelector('#blocker-overlay');
-    overlayElement.dataset.proceedMode = proceedMode;
-    overlayElement.dataset.proceedText = proceedText;
-    overlayElement.dataset.confirmText = confirmText;
-    overlayElement.dataset.confirmMode = confirmMode;
+    const overlay = wrapper.querySelector('#blocker-overlay');
+    overlay.addEventListener('overlayReady', () => {
+      overlay.dispatchEvent(new CustomEvent('overlaySettings', { detail: settings }));
+    });
 
     const logo = wrapper.querySelector('#no-ai-logo')
     logo.src = chrome.runtime.getURL('images/logo.svg');
