@@ -37,7 +37,6 @@ function injectJS() {
     // 2. Inject the CSS stylesheet
     const cssLink = document.createElement('link');
     cssLink.rel = 'stylesheet';
-    cssLink.type = 'text/css';
     cssLink.href = chrome.runtime.getURL('resources/overlay/overlay.css');
     document.head.appendChild(cssLink);
 
