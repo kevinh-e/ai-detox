@@ -66,8 +66,12 @@ function setupBlockMode() {
 }
 
 function handleProceed() {
-  if (input1.value.trim() === settings.proceedText && input2.value.trim() === settings.confirmText) {
-    removeOverlay();
+  if (input1.value.trim() === settings.proceedText) {
+    if (settings.confirmMode === true && input2.value.trim() === settings.confirmText) {
+      removeOverlay();
+    } else {
+      removeOverlay();
+    }
   } else {
     errorMessage.style.display = 'block';
     input1.value = '';

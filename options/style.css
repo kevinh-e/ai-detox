@@ -34,15 +34,22 @@ body {
   text-decoration: none;
 }
 
-#nav-element {
+.nav-element {
   border-style: solid;
   border-width: 3px;
   border-color: gray;
   color: black;
   text-decoration: none;
+  transition-duration: 300ms;
 }
 
-#nav-element:active {
+.nav-element:active {
+  background-color: black;
+  color: white;
+  text-decoration: none;
+}
+
+.nav-element:hover {
   background-color: black;
   color: white;
   text-decoration: none;

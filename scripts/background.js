@@ -46,7 +46,7 @@ async function updateBlockingRules() {
 }
 
 chrome.storage.onChanged.addListener((changes, areaName) => {
-  if (areaName === 'sync' && (changes[BLOCKED_SITES] || changes[FILTER_MODE] || changes[CONFIRM_MODE])) {
+  if (areaName === 'sync' && (changes[BLOCKED_SITES])) {
     updateBlockingRules();
   }
 });
@@ -69,10 +69,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
         sendResponse({
           isBlocked: isBlocked,
-          proceedMode: settings[FILTER_MODE] || true,
+          proceedMode: settings[FILTER_MODE] ?? true,
           proceedText: settings[PROCEED_TEXT] || "I'm sure I want to use AI.",
           confirmText: settings[CONFIRM_TEXT] || "Confirm",
-          confirmMode: settings[CONFIRM_MODE] || true,
+          confirmMode: settings[CONFIRM_MODE] ?? true,
         });
       });
     return true;

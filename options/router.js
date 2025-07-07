@@ -32,13 +32,17 @@ async function router() {
       currentScript.remove();
       currentScript = null;
     }
+    const module = await import(chrome.runtime.getURL(route.js)).catch(err => {
+      console.error('Failed to load script:', route.js, err);
+    });
+    console.log("loadSettings")
+    module.loadSettings?.();
 
-    const script = document.createElement('script');
-    script.type = 'module';
-    script.src = chrome.runtime.getURL(route.js);
-    script.defer = true;
-    document.body.appendChild(script);
-    currentScript = script;
+    // const script = document.createElement('script');
+    // script.type = 'module';
+    // script.src = chrome.runtime.getURL(route.js);
+    // document.body.appendChild(script);
+    // currentScript = script;
   }
 
   // default (index.html route)
@@ -48,12 +52,10 @@ async function router() {
     const html = await res.text();
     app.innerHTML = html;
 
-    const script = document.createElement('script');
-    script.type = 'module';
-    script.src = chrome.runtime.getURL(routes['general'].js);
-    script.defer = true;
-    document.body.appendChild(script);
-    currentScript = script;
+    const module = await import(chrome.runtime.getURL(route.js)).catch(err => {
+      console.error('Failed to load script:', route.js, err);
+    });
+    module.loadSettings?.();
   }
 
   // update active nav

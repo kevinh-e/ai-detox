@@ -1,4 +1,4 @@
-function injectJS() {
+function injectJS(overlayJs) {
   const script = document.createElement('script');
   script.id = 'blocker-script'; // Give it an ID for easy removal
   script.type = 'module';
@@ -18,10 +18,13 @@ function injectJS() {
   };
 
   if (isBlocked) {
-    const url = chrome.runtime.getURL("resources/overlay/overlay.html");
-    const html = await fetch(url).then(r => r.text());
+    const [overlayHtml, overlayCss, overlayJs] = await Promise.all([
+      fetch(chrome.runtime.getURL("resources/overlay/overlay.html")).then(r => r.text()),
+      fetch(chrome.runtime.getURL("resources/overlay/overlay.css")).then(r => r.text()),
+    ]);
+
     const wrapper = document.createElement("div");
-    wrapper.innerHTML = html;
+    wrapper.innerHTML = overlayHtml;
 
     // Find the overlay element and attach data to it
     const overlay = wrapper.querySelector('#blocker-overlay');
@@ -35,10 +38,9 @@ function injectJS() {
     document.documentElement.appendChild(wrapper);
 
     // 2. Inject the CSS stylesheet
-    const cssLink = document.createElement('link');
-    cssLink.rel = 'stylesheet';
-    cssLink.href = chrome.runtime.getURL('resources/overlay/overlay.css');
-    document.head.appendChild(cssLink);
+    const style = document.createElement('style');
+    style.textContent = overlayCss;
+    document.head.appendChild(style);
 
     // 3. Inject the behavior script
     // If we're already past DOMContentLoaded, just go.

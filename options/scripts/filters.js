@@ -16,20 +16,18 @@ const confirmTextInput = document.getElementById('confirmText');
 const saveButton = document.getElementById('saveButton');
 const statusDiv = document.getElementById('status');
 
+export function init() {
+  loadSettings();
+}
+
 // Load saved settings
-export function loadSettings() {
+function loadSettings() {
   chrome.storage.sync.get(Object.values(STORAGE_KEYS))
     .then((settings) => {
       console.log("load settings: ", settings);
       const savedSites = settings[BLOCKED_SITES];
 
       blockedSitesTextarea.value = (savedSites && savedSites.length > 0) ? savedSites.join('\n') : defaultLLMSites.join('\n');
-      filterModeCheckbox.checked = settings[FILTER_MODE] ?? true;
-      confirmModeCheckbox.checked = settings[CONFIRM_MODE] ?? true;
-      proceedTextInput.value = settings[PROCEED_TEXT] ?? "I'm sure I want to use AI.";
-      confirmTextInput.value = settings[CONFIRM_TEXT] ?? "Confirm";
-
-      toggleConfirmationSettings();
     })
     .catch(error => {
       console.error("Error loading settings:", error);
@@ -43,17 +41,9 @@ function saveSettings() {
   console.log("saving");
 
   const blockedSites = blockedSitesTextarea.value.split('\n').map(s => s.trim()).filter(s => s !== '');
-  const filterMode = filterModeCheckbox.checked;
-  const proceedText = proceedTextInput.value.trim();
-  const confirmText = confirmTextInput.value.trim();
-  const confirmMode = confirmModeCheckbox.checked;
 
   const settings = {
     [BLOCKED_SITES]: blockedSites,
-    [FILTER_MODE]: filterMode,
-    [PROCEED_TEXT]: proceedText,
-    [CONFIRM_TEXT]: confirmText,
-    [CONFIRM_MODE]: confirmMode
   }
 
   console.log(settings);
@@ -73,18 +63,7 @@ function saveSettings() {
     });
 }
 
-// Toggle visibility of confirmation text input
-function toggleConfirmationSettings() {
-  if (filterModeCheckbox.checked) {
-    confirmModeCheckbox.disabled = false;
-    confirmTextInput.disabled = false;
-  } else {
-    confirmModeCheckbox.disabled = true;
-    confirmTextInput.disabled = true;
-  }
-}
-
 // Event Listeners
 saveButton.addEventListener('click', saveSettings);
-filterModeCheckbox.addEventListener('change', toggleConfirmationSettings);
+window.addEventListener('DOMContentLoaded', init);
 loadSettings();
