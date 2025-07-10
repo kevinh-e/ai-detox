@@ -8,22 +8,45 @@ const {
   CONFIRM_MODE,
 } = STORAGE_KEYS;
 
-const blockedSitesTextarea = document.getElementById('blockedSites');
-const filterModeCheckbox = document.getElementById('filterMode');
-const confirmModeCheckbox = document.getElementById('confirmMode');
-const proceedTextInput = document.getElementById('proceedText');
-const confirmTextInput = document.getElementById('confirmText');
-const saveButton = document.getElementById('saveButton');
-const statusDiv = document.getElementById('status');
+let loadedSettings = null;
+
+let filterModeCheckbox;
+let confirmModeCheckbox;
+let proceedTextInput;
+let confirmTextInput;
+let saveButton;
+let statusDiv;
+
+export function init() {
+  console.log("General initialising");
+
+  filterModeCheckbox = document.getElementById('filterMode');
+  confirmModeCheckbox = document.getElementById('confirmMode');
+  proceedTextInput = document.getElementById('proceedText');
+  confirmTextInput = document.getElementById('confirmText');
+  saveButton = document.getElementById('saveButton');
+  statusDiv = document.getElementById('status');
+
+  loadSettings();
+
+  saveButton.addEventListener('click', saveSettings);
+  filterModeCheckbox.addEventListener('change', toggleConfirmationSettings);
+}
+
+export function cleanup() {
+  console.log("General cleaning up");
+
+  saveButton?.removeEventListener('click', saveSettings);
+  filterModeCheckbox?.removeEventListener('change', toggleConfirmationSettings);
+}
 
 // Load saved settings
-export function loadSettings() {
+const loadSettings = () => {
   chrome.storage.sync.get(Object.values(STORAGE_KEYS))
     .then((settings) => {
-      console.log("load settings: ", settings);
-      const savedSites = settings[BLOCKED_SITES];
+      loadedSettings = settings;
+      console.log("General loading settings: ", settings);
 
-      blockedSitesTextarea.value = (savedSites && savedSites.length > 0) ? savedSites.join('\n') : defaultLLMSites.join('\n');
       filterModeCheckbox.checked = settings[FILTER_MODE] ?? true;
       confirmModeCheckbox.checked = settings[CONFIRM_MODE] ?? true;
       proceedTextInput.value = settings[PROCEED_TEXT] ?? "I'm sure I want to use AI.";
@@ -39,24 +62,21 @@ export function loadSettings() {
 }
 
 // Save settings
-function saveSettings() {
-  console.log("saving");
-
-  const blockedSites = blockedSitesTextarea.value.split('\n').map(s => s.trim()).filter(s => s !== '');
+const saveSettings = () => {
   const filterMode = filterModeCheckbox.checked;
   const proceedText = proceedTextInput.value.trim();
   const confirmText = confirmTextInput.value.trim();
   const confirmMode = confirmModeCheckbox.checked;
 
   const settings = {
-    [BLOCKED_SITES]: blockedSites,
+    [BLOCKED_SITES]: loadedSettings[BLOCKED_SITES],
     [FILTER_MODE]: filterMode,
     [PROCEED_TEXT]: proceedText,
     [CONFIRM_TEXT]: confirmText,
     [CONFIRM_MODE]: confirmMode
   }
 
-  console.log(settings);
+  console.log("Saving settings:", settings);
 
   chrome.storage.sync.set(settings)
     .then(() => {
@@ -74,7 +94,7 @@ function saveSettings() {
 }
 
 // Toggle visibility of confirmation text input
-function toggleConfirmationSettings() {
+const toggleConfirmationSettings = () => {
   if (filterModeCheckbox.checked) {
     confirmModeCheckbox.disabled = false;
     confirmTextInput.disabled = false;
@@ -84,7 +104,3 @@ function toggleConfirmationSettings() {
   }
 }
 
-// Event Listeners
-saveButton.addEventListener('click', saveSettings);
-filterModeCheckbox.addEventListener('change', toggleConfirmationSettings);
-loadSettings();

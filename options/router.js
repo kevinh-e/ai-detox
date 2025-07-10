@@ -1,71 +1,44 @@
 const routes = {
-  'general': { html: 'options/pages/general.html', js: 'options/scripts/general.js' },
-  'filters': { html: 'options/pages/filters.html', js: 'options/scripts/filters.js' },
-  'appearance': { html: 'options/pages/appearance.html', js: 'options/scripts/appearance.js' },
-  'about': { html: 'options/pages/about.html', js: 'options/scripts/about.js' },
+  'general': 'general',
+  'filters': 'filters',
+  'appearance': 'appearance',
+  'about': 'about'
 };
 
-
 const app = document.getElementById('app');
-let currentScript;
+const links = document.querySelectorAll('nav-element');
+let currentModule = null;
 
-async function router() {
-  const path = location.hash.slice(1) || '/';
-  const route = routes[path];
+export function init() {
+  window.addEventListener('hashchange', () => loadRoute());
+  window.addEventListener('load', () => loadRoute());
+}
 
-  if (route) {
-    // inject html and js
-    const url = chrome.runtime.getURL(route.html);
+async function loadRoute() {
+  const routeName = window.location.hash.replace("#", '') || '/general';
+  const route = routes[routeName] || 'general';
 
-    try {
-      const res = await fetch(url);
-      if (!res.ok) throw new Error(`Network response wasnt ok :/. HTTP ${res.status}`);
+  // 0.5 cleanup previous js
+  currentModule?.cleanup?.();
 
-      const html = await res.text();
-      app.innerHTML = html;
-    } catch (err) {
-      app.innerHTML = '<h1>Error</h1><p>Could not load page :c</p>';
-      console.error(err);
-    }
+  // 1. fetch + inject html
+  console.log(`fetching /options/pages/${route}.html`)
+  const html = await fetch(`/options/pages/${route}.html`).then(r => r.text());
+  app.innerHTML = html;
 
-    if (currentScript) {
-      currentScript.remove();
-      currentScript = null;
-    }
-    const module = await import(chrome.runtime.getURL(route.js)).catch(err => {
-      console.error('Failed to load script:', route.js, err);
-    });
-    console.log("loadSettings")
-    module.loadSettings?.();
+  // 2. import and run js module
+  console.log(`fetching /options/pages/${route}.js`)
+  const module = await import(`/options/scripts/${route}.js`);
+  currentModule = module;
+  currentModule?.init?.();
 
-    // const script = document.createElement('script');
-    // script.type = 'module';
-    // script.src = chrome.runtime.getURL(route.js);
-    // document.body.appendChild(script);
-    // currentScript = script;
-  }
-
-  // default (index.html route)
-  else {
-    const url = chrome.runtime.getURL(routes['general'].html);
-    const res = await fetch(url);
-    const html = await res.text();
-    app.innerHTML = html;
-
-    const module = await import(chrome.runtime.getURL(route.js)).catch(err => {
-      console.error('Failed to load script:', route.js, err);
-    });
-    module.loadSettings?.();
-  }
-
-  // update active nav
-  document.querySelectorAll('nav a').forEach(link => {
+  // 3. update nav
+  links.forEach(link => {
     link.classList.toggle(
       'active',
-      link.getAttribute('href') === `#${path}`
+      link.getAttribute('href') === `#${route}`
     );
   });
 }
 
-window.addEventListener('DOMContentLoaded', router);
-window.addEventListener('hashchange', router);
+init();

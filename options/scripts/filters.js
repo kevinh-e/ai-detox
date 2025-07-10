@@ -8,25 +8,39 @@ const {
   CONFIRM_MODE,
 } = STORAGE_KEYS;
 
-const blockedSitesTextarea = document.getElementById('blockedSites');
-const filterModeCheckbox = document.getElementById('filterMode');
-const confirmModeCheckbox = document.getElementById('confirmMode');
-const proceedTextInput = document.getElementById('proceedText');
-const confirmTextInput = document.getElementById('confirmText');
-const saveButton = document.getElementById('saveButton');
-const statusDiv = document.getElementById('status');
+let blockedSitesTextarea;
+let saveButton;
+let statusDiv;
+
+let loadedSettings = null;
 
 export function init() {
+  console.log("General initialising");
+
+  blockedSitesTextarea = document.getElementById('blockedSites');
+  saveButton = document.getElementById('saveButton');
+  statusDiv = document.getElementById('status');
+
   loadSettings();
+
+  saveButton.addEventListener('click', saveSettings);
+}
+
+export function cleanup() {
+  console.log("Filters cleaning up");
+
+  saveButton?.removeEventListener('click', saveSettings);
 }
 
 // Load saved settings
-function loadSettings() {
+const loadSettings = () => {
   chrome.storage.sync.get(Object.values(STORAGE_KEYS))
     .then((settings) => {
-      console.log("load settings: ", settings);
-      const savedSites = settings[BLOCKED_SITES];
+      loadedSettings = settings;
 
+      console.log("Filters loading settings: ", settings);
+
+      const savedSites = settings[BLOCKED_SITES];
       blockedSitesTextarea.value = (savedSites && savedSites.length > 0) ? savedSites.join('\n') : defaultLLMSites.join('\n');
     })
     .catch(error => {
@@ -37,18 +51,11 @@ function loadSettings() {
 }
 
 // Save settings
-function saveSettings() {
-  console.log("saving");
+const saveSettings = () => {
+  loadedSettings[BLOCKED_SITES] = blockedSitesTextarea.value.split('\n').map(s => s.trim()).filter(s => s !== '');
+  console.log("Saving settings:", loadedSettings);
 
-  const blockedSites = blockedSitesTextarea.value.split('\n').map(s => s.trim()).filter(s => s !== '');
-
-  const settings = {
-    [BLOCKED_SITES]: blockedSites,
-  }
-
-  console.log(settings);
-
-  chrome.storage.sync.set(settings)
+  chrome.storage.sync.set(loadedSettings)
     .then(() => {
       statusDiv.textContent = 'Settings saved!';
       statusDiv.style.color = 'green';
@@ -62,8 +69,3 @@ function saveSettings() {
       statusDiv.style.color = 'red';
     });
 }
-
-// Event Listeners
-saveButton.addEventListener('click', saveSettings);
-window.addEventListener('DOMContentLoaded', init);
-loadSettings();
