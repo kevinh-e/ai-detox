@@ -6,7 +6,7 @@ const routes = {
 };
 
 const app = document.getElementById('app');
-const links = document.querySelectorAll('nav-element');
+const links = document.querySelectorAll('.nav-element');
 let currentModule = null;
 
 export function init() {
@@ -35,7 +35,7 @@ async function loadRoute() {
   // 3. update nav
   links.forEach(link => {
     link.classList.toggle(
-      'active',
+      'active-nav',
       link.getAttribute('href') === `#${route}`
     );
   });

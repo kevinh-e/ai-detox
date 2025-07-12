@@ -1,7 +1,7 @@
 {
   "name": "no-ai",
   "description": "filter out AI summaries and restrict LLMs",
-  "version": "1.0",
+  "version": "0.1.0",
   "manifest_version": 3,
   "action": {
     "default_popup": "popup/popup.html",

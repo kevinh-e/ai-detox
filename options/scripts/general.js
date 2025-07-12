@@ -24,7 +24,7 @@ export function init() {
   confirmModeCheckbox = document.getElementById('confirmMode');
   proceedTextInput = document.getElementById('proceedText');
   confirmTextInput = document.getElementById('confirmText');
-  saveButton = document.getElementById('saveButton');
+  saveButton = document.getElementById('save-button');
   statusDiv = document.getElementById('status');
 
   loadSettings();
@@ -81,7 +81,7 @@ const saveSettings = () => {
   chrome.storage.sync.set(settings)
     .then(() => {
       statusDiv.textContent = 'Settings saved!';
-      statusDiv.style.color = 'green';
+      statusDiv.style.color = 'var(--emerald)';
       setTimeout(() => {
         statusDiv.textContent = '';
       }, 3000);
@@ -89,7 +89,7 @@ const saveSettings = () => {
     .catch(error => {
       console.error("Error saving settings:", error);
       statusDiv.textContent = 'Error saving settings.';
-      statusDiv.style.color = 'red';
+      statusDiv.style.color = 'var(--rose)';
     });
 }
 

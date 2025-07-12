@@ -18,7 +18,7 @@ export function init() {
   console.log("General initialising");
 
   blockedSitesTextarea = document.getElementById('blockedSites');
-  saveButton = document.getElementById('saveButton');
+  saveButton = document.getElementById('save-button');
   statusDiv = document.getElementById('status');
 
   loadSettings();
