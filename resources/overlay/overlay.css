@@ -23,9 +23,10 @@
   border-radius: 8px;
   text-align: left;
   max-width: 420px;
-  width: 90%;
+  width: 100%;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   z-index: 99999;
+  box-sizing: border-box !important;
 }
 
 #blocker-overlay h2 {
@@ -57,11 +58,11 @@
   margin-bottom: 16px;
 }
 
-.input{
+.noai-input {
   background-color: hsl(0 0% 100%);
   padding: 8px 12px;
   width: 100%;
-  height: 40px;
+  height: 2.5rem;
   border: 1px solid hsl(0 0% 89.8%);
   border-radius: 6px;
   margin-bottom: 32px;
@@ -70,9 +71,10 @@
   color: hsl(0 0% 3.9%);
   transition: border-color 0.2s, box-shadow 0.2s;
   outline: none;
+  box-sizing: border-box !important;
 }
 
-.input:focus {
+.noai-input:focus {
   border-color: hsl(0 0% 3.9%);
   box-shadow: 0 0 0 2px hsl(0 0% 3.9% / 0.2);
 }
