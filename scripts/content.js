@@ -1,24 +1,25 @@
-function injectJS(overlayJs) {
+function injectJS() {
   const script = document.createElement('script');
   script.id = 'blocker-script'; // Give it an ID for easy removal
   script.type = 'module';
   script.src = chrome.runtime.getURL('resources/overlay/overlay.js');
-  script.defer = true;
+  // script.defer = true;
   document.body.appendChild(script);
 }
 
 (async () => {
   const response = await chrome.runtime.sendMessage({ type: "getBlockSettings" });
-  const { isBlocked, proceedMode, proceedText, confirmText, confirmMode } = response;
+  const { enabled, isBlocked, proceedMode, proceedText, confirmText, confirmMode } = response;
   const settings = {
+    enabled,
     proceedMode,
     proceedText,
     confirmText,
     confirmMode,
   };
 
-  if (isBlocked) {
-    const [overlayHtml, overlayCss, overlayJs] = await Promise.all([
+  if (isBlocked && enabled) {
+    const [overlayHtml, overlayCss] = await Promise.all([
       fetch(chrome.runtime.getURL("resources/overlay/overlay.html")).then(r => r.text()),
       fetch(chrome.runtime.getURL("resources/overlay/overlay.css")).then(r => r.text()),
     ]);

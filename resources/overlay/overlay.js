@@ -12,13 +12,11 @@ const button = document.getElementById('proceed-button');
 const errorMessage = document.getElementById('error-message');
 
 // --- Read configuration from data attributes ---
-// const { proceedMode, proceedText, confirmText, confirmMode } = overlay.dataset;
-
 const settings = {};
 overlay.addEventListener('overlaySettings', (event) => {
   Object.assign(settings, event.detail);
   init();
-  console.log(settings)
+  console.log(settings);
 });
 
 overlay.dispatchEvent(new Event('overlayReady'));
