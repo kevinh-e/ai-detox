@@ -1,0 +1,27 @@
+name: CI CD
+
+on:
+  push:
+    branches:
+      - main
+    pull_request:
+      branches:
+        - '**'
+
+jobs:
+  lint:
+    name: Lint
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install deps
+        run: npm ci
+
+      
