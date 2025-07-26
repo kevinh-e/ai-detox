@@ -2,28 +2,34 @@
   <h2>Extension Configuration</h2>
   <h1>General</h1>
 
-  <div>
-    <label>
-        <input type="checkbox" id="filterMode">
-        Enable proceed text (instead of blocking the site)
-    </label>
-    <p class="note">If checked, you'll see a prompt to type confirmation text. If unchecked, sites will be completely blocked.</p>
-
+  <div id="settings-items">
     <div>
-        <label for="proceedText">Proceed Text:</label>
-        <input type="text" id="proceedText">
-        <p class="note">Users must type this exact text to access blocked sites in confirmation mode.</p>
+      <label>
+        <input type="checkbox" id="globalEnabled">
+        Enable the no-ai extension
+      </label>
     </div>
 
-    <label>
-        <input type="checkbox" id="confirmMode" disabled>
-        Enable confirm text
-    </label>
-    <p class="note">If checked, you'll have to confirm that you want to proceed by typing a second text prompt</p>
+    <div>
+      <label>
+        <input type="checkbox" id="filterMode">
+        Enable proceed text (instead of blocking the site)
+      </label>
+      <p class="note">If checked, you'll see a prompt to type confirmation text. If unchecked, sites will be completely blocked.</p>
+      <label for="proceedText">Proceed Text:</label>
+      <input type="text" id="proceedText">
+      <p class="note">Users must type this exact text to access blocked sites in confirmation mode.</p>
+    </div>
 
     <div>
-        <label for="confirmText">Confirmation Text:</label>
-        <input type="text" id="confirmText" disabled>
+      <label>
+        <input type="checkbox" id="confirmMode" disabled>
+        Enable confirm text
+      </label>
+      <p class="note">If checked, you'll have to confirm that you want to proceed by typing a second text prompt</p>
+
+      <label for="confirmText">Confirmation Text:</label>
+      <input type="text" id="confirmText" disabled>
     </div>
   </div>
 

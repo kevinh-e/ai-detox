@@ -1,3 +1,29 @@
+:root {
+  /** Base colors */
+  --clr-dark-a0: #000000;
+  --clr-light-a0: #ffffff;
+
+  /** Theme primary colors */
+  --clr-primary-a0: #edb38e;
+  --clr-primary-a10: #f0bb9a;
+  --clr-primary-a20: #f3c4a6;
+  --clr-primary-a30: #f5ccb3;
+  --clr-primary-a40: #f7d4bf;
+  --clr-primary-a50: #f9ddcc;
+
+  /** Theme surface colors */
+  --clr-surface-a0: #121212;
+  --clr-surface-a10: #282828;
+  --clr-surface-a20: #3f3f3f;
+  --clr-surface-a30: #575757;
+  --clr-surface-a40: #717171;
+  --clr-surface-a50: #8b8b8b;
+
+  --emerald: oklch(69.6% 0.17 162.48);
+  --rose: oklch(64.5% 0.246 16.439);
+}
+
+
 #blocker-overlay {
   position: fixed;
   top: 0;

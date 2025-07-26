@@ -2,10 +2,6 @@ import { defaultLLMSites, STORAGE_KEYS } from "../../config.js";
 
 const {
   BLOCKED_SITES,
-  FILTER_MODE,
-  PROCEED_TEXT,
-  CONFIRM_TEXT,
-  CONFIRM_MODE,
 } = STORAGE_KEYS;
 
 let blockedSitesTextarea;

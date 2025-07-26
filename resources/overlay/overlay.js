@@ -1,7 +1,7 @@
 // --- DOM Elements ---
 const overlay = document.getElementById('blocker-overlay');
 const title = document.getElementById('blocker-title');
-const instruction = document.getElementById('blocker-instruction');
+// const instruction = document.getElementById('blocker-instruction');
 const instructionCode = document.getElementById('proceed-code');
 const instructionCode2 = document.getElementById('confirm-code');
 const proceedContainer = document.getElementById('proceed-container');
@@ -12,13 +12,11 @@ const button = document.getElementById('proceed-button');
 const errorMessage = document.getElementById('error-message');
 
 // --- Read configuration from data attributes ---
-// const { proceedMode, proceedText, confirmText, confirmMode } = overlay.dataset;
-
 const settings = {};
 overlay.addEventListener('overlaySettings', (event) => {
   Object.assign(settings, event.detail);
   init();
-  console.log(settings)
+  console.log(settings);
 });
 
 overlay.dispatchEvent(new Event('overlayReady'));

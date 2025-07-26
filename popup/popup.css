@@ -1,0 +1,86 @@
+:root {
+  /** Base colors */
+  --clr-dark-a0: #000000;
+  --clr-light-a0: #ffffff;
+
+  /** Theme primary colors */
+  --clr-primary-a0: #edb38e;
+  --clr-primary-a10: #f0bb9a;
+  --clr-primary-a20: #f3c4a6;
+  --clr-primary-a30: #f5ccb3;
+  --clr-primary-a40: #f7d4bf;
+  --clr-primary-a50: #f9ddcc;
+
+  /** Theme surface colors */
+  --clr-surface-a0: #121212;
+  --clr-surface-a10: #282828;
+  --clr-surface-a20: #3f3f3f;
+  --clr-surface-a30: #575757;
+  --clr-surface-a40: #717171;
+  --clr-surface-a50: #8b8b8b;
+
+  --emerald: oklch(69.6% 0.17 162.48);
+  --rose: oklch(64.5% 0.246 16.439);
+}
+
+body {
+  height: 300px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  min-width: 250px;
+  background-color: var(--clr-surface-a10);
+  vertical-align: top
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+  display: none;
+  vertical-align: top
+}
+
+h2 {
+  margin: 0;
+  font-size: 14px;
+  min-width: 250px;
+  padding: 10px;
+  text-align: center;
+  color: var(--clr-primary-a50);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+main {
+  height: 300px;
+  margin: 0px 10px 10px 10px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 15px;
+  background-color: var(--clr-surface-a0);
+}
+
+#powerIcon {
+  display: block;
+  color: var(--clr-primary-a10);
+  width: 50%;
+  cursor: pointer;
+  transition: all;
+  transition-duration: 300ms;
+}
+
+#powerIcon:hover {
+  color: var(--clr-primary-a50);
+  cursor: pointer;
+}
+
+#powerIconContainer {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 1px solid var(--clr-surface-a30);
+}

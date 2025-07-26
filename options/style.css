@@ -131,7 +131,7 @@ nav {
     width: calc(100% - 20px);
     max-width: 500px;
     padding: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     border: 1px solid var(--clr-surface-a10);
     background-color: var(--clr-surface-a10);
     color: var(--clr-light-a0);
@@ -189,6 +189,12 @@ nav {
     margin-top: 20px;
     font-weight: bold;
     color: var(--emerald);
+}
+
+#settings-items {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 .note {
