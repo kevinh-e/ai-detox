@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let hostname = url.hostname.replace(/^www\./, '');
         document.getElementById('websiteName').textContent = hostname;
       } catch (e) {
-        document.getElementById('websiteName').textContent = "Invalid URL.";
+        document.getElementById('websiteName').textContent = `Invalid URL. [${e}]`;
       }
     } else {
       document.getElementById('websiteName').textContent = "Could not get website URL.";

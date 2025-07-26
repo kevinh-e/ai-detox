@@ -1,7 +1,7 @@
 // --- DOM Elements ---
 const overlay = document.getElementById('blocker-overlay');
 const title = document.getElementById('blocker-title');
-const instruction = document.getElementById('blocker-instruction');
+// const instruction = document.getElementById('blocker-instruction');
 const instructionCode = document.getElementById('proceed-code');
 const instructionCode2 = document.getElementById('confirm-code');
 const proceedContainer = document.getElementById('proceed-container');
