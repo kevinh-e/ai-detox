@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkai_detox=self.webpackChunkai_detox||[]).push([[138],{757:(e,n,t)=>{function o(){i()}t.r(n),t.d(n,{cleanup:()=>s,init:()=>o});const i=()=>{const e=chrome.runtime.getManifest();document.getElementById("version").textContent=e.version,console.log(e.version)};function s(){}}}]);

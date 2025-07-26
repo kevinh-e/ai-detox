@@ -1,0 +1,1 @@
+export function init(){updateVersion()}const updateVersion=()=>{const e=chrome.runtime.getManifest();document.getElementById("version").textContent=e.version,console.log(e.version)};export function cleanup(){}

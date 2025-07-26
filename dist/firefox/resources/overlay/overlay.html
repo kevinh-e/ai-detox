@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<div id="blocker-overlay">
+  <div class="content-wrapper">
+    <img id="no-ai-logo" alt="no-ai logo"/>
+    <h2 id="blocker-title">AI is a tool, not a replacement.</h2>
+    
+    <div id="proceed-container">
+      <p class="blocker-instruction">
+        This website is restricted by no-ai.
+        <br />
+        To proceed, type <code id="proceed-code"></code> below:
+      </p>
+      <input type="text" id="proceed-input" placeholder="Enter confirmation text" autocomplete="off" class="noai-input">
+      <div id="confirm-container" style="display: none">
+        <p class="blocker-instruction">
+          Confirm by typing <code id="confirm-code"></code>:
+        </p>
+        <input type="text" id="confirmation-input" placeholder="Confirm" autocomplete="off" class="noai-input" style="height: 2.5rem;">
+      </div>
+      <p id="error-message">Incorrect confirmation text.</p>
+      <button id="proceed-button">Proceed</button>
+    </div>
+  </div>
+</div>

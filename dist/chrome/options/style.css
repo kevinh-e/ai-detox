@@ -1,0 +1,233 @@
+:root {
+  /** Base colors */
+  --clr-dark-a0: #000000;
+  --clr-light-a0: #ffffff;
+
+  /** Theme primary colors */
+  --clr-primary-a0: #edb38e;
+  --clr-primary-a10: #f0bb9a;
+  --clr-primary-a20: #f3c4a6;
+  --clr-primary-a30: #f5ccb3;
+  --clr-primary-a40: #f7d4bf;
+  --clr-primary-a50: #f9ddcc;
+
+  /** Theme surface colors */
+  --clr-surface-a0: #121212;
+  --clr-surface-a10: #282828;
+  --clr-surface-a20: #3f3f3f;
+  --clr-surface-a30: #575757;
+  --clr-surface-a40: #717171;
+  --clr-surface-a50: #8b8b8b;
+
+  --emerald: oklch(69.6% 0.17 162.48);
+  --rose: oklch(64.5% 0.246 16.439);
+}
+
+body {
+    display: flex;
+    flex-direction: row;
+    height: calc(100vh - 80px);
+    box-sizing: border-box;
+    font-family: "Geist Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    padding: 20px 20px 20px 10px;
+    background-color: var(--clr-surface-a10);
+    color: var(--clr-light-a0);
+    font-size: 16px
+}
+
+#sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--clr-primary-a0);
+  min-width: 180px;
+  padding-right: 10px;
+}
+
+#logo {
+  color: var(--clr-light-a0);
+  fill: var(--clr-light-a0);
+  margin-bottom: 25px;
+}
+
+nav {
+  display: grid;
+  margin: 0 auto 30px;
+  grid-template-rows: repeat(4, minmax(0, 1fr));
+  list-style-type: none;
+  padding-left: 0;
+  text-align: left;
+  font-size: 1rem;
+  gap: 5px;
+}
+
+.nav-element {
+  display: flex;
+  flex-direction: row;
+  color: var(--clr-light-a0);
+  text-decoration: none;
+  transition-duration: 300ms;
+  border-radius: 5px;
+  line-height: 24px;
+  padding: 10px;
+  gap: 0.5rem;
+}
+
+.active-nav {
+  color: var(--clr-primary-a20);
+  text-decoration: none;
+}
+
+.nav-element:hover {
+  background-color: var(--clr-surface-a30);
+  color: var(--clr-light-a0);
+  text-decoration: none;
+}
+
+.container {
+    flex-grow: 1;
+    height: 100%;
+    margin: 0 auto;
+    background-color: var(--clr-surface-a0);
+    color: var(--clr-light-a0);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+.container h1 {
+    color: var(--clr-light-a0);
+    font-size: 2rem;
+    margin: 0px 0 25px;
+}
+
+.container h2 {
+    color: var(--clr-primary-a50);
+    font-size: 1rem;
+    margin: 0 0 10px;
+    letter-spacing: -0.025em;
+}
+
+.container label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    letter-spacing: 0.025em;
+}
+
+.container textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid var(--clr-surface-a30);
+    border-radius: 4px;
+    min-height: 100px;
+    resize: vertical;
+}
+
+.container input[type="text"] {
+    width: calc(100% - 20px);
+    max-width: 500px;
+    padding: 10px;
+    margin-bottom: 5px;
+    border: 1px solid var(--clr-surface-a10);
+    background-color: var(--clr-surface-a10);
+    color: var(--clr-light-a0);
+    border-radius: 4px;
+    font-size: 0.95rem;
+}
+
+.container input::placeholder {
+  color: var(--clr-surface-a50);
+}
+
+
+.container input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.container button {
+    padding: 10px 20px;
+    background-color: var(--clr-primary-a30);
+    color: var(--clr-dark-a0);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition-duration: 300ms;
+    transition-property: all;
+}
+
+#content {
+  height: 100%;
+}
+
+#footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin: 20px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+#save-button {
+  margin-top: auto;
+}
+
+.container button:hover {
+    background-color: var(--clr-primary-a10);
+}
+
+#status {
+    margin-top: 20px;
+    font-weight: bold;
+    color: var(--emerald);
+}
+
+#settings-items {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.note {
+    font-size: 1em;
+    color: var(--clr-surface-a40);
+    margin-bottom: 20px;
+}
+
+#about {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#about h1 {
+  margin: 0 0 40px;
+}
+
+#about h3 {
+  margin: 0 0 40px;
+  max-width: 50%;
+}
+
+#about h4 {
+  margin: 0 0 10px;
+}
+
+#about-description {
+  letter-spacing: 0.025em;
+  line-height: 1.35em;
+}
+
+.inline-link {
+  text-decoration: none;
+  color: var(--clr-primary-a20);
+}

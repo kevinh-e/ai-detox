@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkai_detox=self.webpackChunkai_detox||[]).push([[233],{233:(e,s,o)=>{o.r(s),console.log("js loaded")}}]);
